@@ -1,12 +1,13 @@
 
-import org.junit.Test;
+import org.junit.*;
 import static org.junit.Assert.*;
 
 public class test1 {
 
     private int size = 24;
     private WorkSchedule workschedule = new WorkSchedule(size);
-    String employee = "name";
+    private String employee = "name";
+    private String employee2 = "name2";
 
     @Test
     public void addWorkingPeriod_Test1_part1(){
@@ -33,6 +34,26 @@ public class test1 {
         int endTime = 26;
 
         assertFalse(workschedule.addWorkingPeriod(employee, startTime, endTime));
+    }
+
+    @Test
+    public void addWorkingPeriod_Test1_part4(){
+        int startTime = 5;
+        int endTime = 10;
+
+        workschedule.setRequiredNumber(0, startTime, endTime);
+        assertFalse(workschedule.addWorkingPeriod(employee, startTime, endTime));
+    }
+
+    @Test
+    public void addWorkingPeriod_Test1_part5(){
+        int startTime = 5;
+        int endTime = 10;
+
+        workschedule.setRequiredNumber(2, startTime, endTime);
+        assertTrue(workschedule.addWorkingPeriod(employee, startTime, endTime));
+        assertFalse(workschedule.addWorkingPeriod(employee, startTime, endTime));
+        assertTrue(workschedule.addWorkingPeriod(employee2, startTime, endTime));
     }
 
 }
