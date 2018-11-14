@@ -77,50 +77,15 @@ public class WorkSchedule_Test1 {
     public void addWorkingPeriod_Test1_part5(){
         int startTime = 5;
         int endTime = 10;
+        int requiredNumber = 2;
+        String[] workingEmployeesBefore;
 
-        workschedule.setRequiredNumber(2, startTime, endTime);
+        workschedule.setRequiredNumber(requiredNumber, startTime, endTime);
+        workschedule.addWorkingPeriod(employee, startTime, endTime);
 
-        WorkSchedule.Hour hourBefore, hourAfter;
-
-        ////////////////////////////////////////////
-        hourBefore = workschedule.readSchedule(5);
-        int requiredNumber1 = hourBefore.requiredNumber;
-        String[]array1 = hourBefore.workingEmployees;
-
-        assertTrue(workschedule.addWorkingPeriod(employee, startTime, endTime));//The method returns true and employee is added
-
-        hourAfter = workschedule.readSchedule(5);
-        int requiredNumber2 = hourAfter.requiredNumber;
-        String[]array2 = hourAfter.workingEmployees;
-
-        assertFalse(scheduleUnchanged2(requiredNumber1,requiredNumber2,array1, array2));
-
-        ///////////////////////////////////////////
-        hourBefore = workschedule.readSchedule(5);
-        requiredNumber1 = hourBefore.requiredNumber;
-        array1 = hourBefore.workingEmployees;
-
+        workingEmployeesBefore = workschedule.readSchedule(7).workingEmployees;
         assertFalse(workschedule.addWorkingPeriod(employee, startTime, endTime));//The method returns false, employee is already added
-
-        hourAfter = workschedule.readSchedule(5);
-        requiredNumber2 = hourAfter.requiredNumber;
-        array2 = hourAfter.workingEmployees;
-
-        assertTrue(scheduleUnchanged2(requiredNumber1, requiredNumber2, array1, array2));
-
-        ////////////////////////////////////////////
-        hourBefore = workschedule.readSchedule(5);
-        requiredNumber1 = hourBefore.requiredNumber;
-        array1 = hourBefore.workingEmployees;
-
-        assertTrue(workschedule.addWorkingPeriod(employee2, startTime, endTime));////The method returns true and employee2 is added
-
-        hourAfter = workschedule.readSchedule(5);
-        requiredNumber2 = hourAfter.requiredNumber;
-        array2 = hourAfter.workingEmployees;
-        assertFalse(scheduleUnchanged2(requiredNumber1, requiredNumber2, array1, array2));
-
-
+        assertTrue(scheduleUnchanged2(workingEmployeesBefore, 7));
     }
 
     @Test
@@ -151,8 +116,8 @@ public class WorkSchedule_Test1 {
         return hourBefore.requiredNumber == hourAfter.requiredNumber && Arrays.equals(hourBefore.workingEmployees, hourAfter.workingEmployees);
     }
 
-    private boolean scheduleUnchanged2(int requiredNumber1, int requiredNumber2, String[]array1, String[]array2){
-        return requiredNumber1==requiredNumber2 && Arrays.equals(array1, array2);
+    private boolean scheduleUnchanged2(String[] workingEmployeesBefore, int time) {
+        return Arrays.equals(workingEmployeesBefore, workschedule.readSchedule(time).workingEmployees);
     }
 
     private boolean arrayofStringsEquals(String[]array1, String[]array2){
