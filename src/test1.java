@@ -58,6 +58,7 @@ public class test1 {
 
         workschedule.setRequiredNumber(requiredNumber, startTime, endTime);
 
+
         assertTrue(workschedule.workingEmployees(startTime, endTime).length == 0);//No employees in the schedule
         assertFalse(workschedule.addWorkingPeriod(employee, startTime, endTime)); //Returns false and schedule is unchanged
         assertTrue(workschedule.workingEmployees(startTime, endTime).length == 0); //No employee was added
