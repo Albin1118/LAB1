@@ -5,7 +5,7 @@ import java.util.Arrays;
 
 import static org.junit.Assert.*;
 
-public class test1 {
+public class WorkSchedule_Test1 {
 
     private int size = 24;
     private WorkSchedule workschedule = new WorkSchedule(size);
