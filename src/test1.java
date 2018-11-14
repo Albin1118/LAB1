@@ -1,5 +1,8 @@
 
 import org.junit.*;
+
+import java.util.Arrays;
+
 import static org.junit.Assert.*;
 
 public class test1 {
@@ -69,6 +72,10 @@ public class test1 {
         assertTrue(workschedule.addWorkingPeriod(employee, startTime, endTime));//The method returns true and employee is added
         assertFalse(workschedule.addWorkingPeriod(employee, startTime, endTime));//The method returns false, employee is already added
         assertTrue(workschedule.addWorkingPeriod(employee2, startTime, endTime));////The method returns true and employee2 is added
+    }
+
+    private boolean scheduleUnchanged(WorkSchedule.Hour hourBefore, WorkSchedule.Hour hourAfter ) {
+        return hourBefore.requiredNumber == hourAfter.requiredNumber && Arrays.equals(hourBefore.workingEmployees, hourAfter.workingEmployees);
     }
 
 }
