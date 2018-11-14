@@ -20,8 +20,10 @@ public class WorkSchedule_Test1 {
         int startTime = -5;
         int endTime = 5;
 
+        WorkSchedule.Hour hourBefore = workschedule.readSchedule(5);
         assertFalse(workschedule.addWorkingPeriod(employee, startTime, endTime));
-        //Add an assert to check that the schedule is unchanged.
+        WorkSchedule.Hour hourAfter = workschedule.readSchedule(5);
+        assertTrue(scheduleUnchanged(hourBefore, hourAfter));
     }
 
     /**
@@ -32,7 +34,10 @@ public class WorkSchedule_Test1 {
         int startTime = 18;
         int endTime = 26;
 
+        WorkSchedule.Hour hourBefore = workschedule.readSchedule(20);
         assertFalse(workschedule.addWorkingPeriod(employee, startTime, endTime));
+        WorkSchedule.Hour hourAfter = workschedule.readSchedule(20);
+        assertTrue(scheduleUnchanged(hourBefore, hourAfter));
     }
 
     /**
@@ -43,7 +48,10 @@ public class WorkSchedule_Test1 {
         int startTime = 18;
         int endTime = 15;
 
+        WorkSchedule.Hour hourBefore = workschedule.readSchedule(18);
         assertFalse(workschedule.addWorkingPeriod(employee, startTime, endTime));
+        WorkSchedule.Hour hourAfter = workschedule.readSchedule(18);
+        assertTrue(scheduleUnchanged(hourBefore, hourAfter));
     }
 
     /**
@@ -59,9 +67,10 @@ public class WorkSchedule_Test1 {
         workschedule.setRequiredNumber(requiredNumber, startTime, endTime);
 
 
-        assertTrue(workschedule.workingEmployees(startTime, endTime).length == 0);//No employees in the schedule
-        assertFalse(workschedule.addWorkingPeriod(employee, startTime, endTime)); //Returns false and schedule is unchanged
-        assertTrue(workschedule.workingEmployees(startTime, endTime).length == 0); //No employee was added
+        WorkSchedule.Hour hourBefore = workschedule.readSchedule(5);
+        assertFalse(workschedule.addWorkingPeriod(employee, startTime, endTime));
+        WorkSchedule.Hour hourAfter = workschedule.readSchedule(5);
+        assertTrue(scheduleUnchanged(hourBefore, hourAfter));
     }
 
     @Test
@@ -70,9 +79,35 @@ public class WorkSchedule_Test1 {
         int endTime = 10;
 
         workschedule.setRequiredNumber(2, startTime, endTime);
+
+        WorkSchedule.Hour hourBefore, hourAfter;
+
+        hourBefore = workschedule.readSchedule(5);
         assertTrue(workschedule.addWorkingPeriod(employee, startTime, endTime));//The method returns true and employee is added
+        hourAfter = workschedule.readSchedule(5);
+        assertFalse(scheduleUnchanged(hourBefore, hourAfter));
+
+        hourBefore = workschedule.readSchedule(5);
         assertFalse(workschedule.addWorkingPeriod(employee, startTime, endTime));//The method returns false, employee is already added
+        hourAfter = workschedule.readSchedule(5);
+        assertTrue(scheduleUnchanged(hourBefore, hourAfter));
+
+        hourBefore = workschedule.readSchedule(5);
         assertTrue(workschedule.addWorkingPeriod(employee2, startTime, endTime));////The method returns true and employee2 is added
+        hourAfter = workschedule.readSchedule(5);
+        assertFalse(scheduleUnchanged(hourBefore, hourAfter));
+
+
+    }
+
+    @Test
+    public void test24(){
+        int[]array = {1, 2, 3};
+        int[]array2 = {1, 2, 3};
+
+        Arrays.equals(array, array2);
+
+
     }
 
     private boolean scheduleUnchanged(WorkSchedule.Hour hourBefore, WorkSchedule.Hour hourAfter ) {
