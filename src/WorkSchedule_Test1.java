@@ -82,6 +82,23 @@ public class WorkSchedule_Test1 {
         assertTrue(scheduleUnchanged(workingEmployeesBefore, 7));
     }
 
+    @Test
+    public void addWorkingPeriod_Test1_part6(){
+        int startTime = 5;
+        int endTime = 10;
+        int requiredNumber = 2;
+
+        workschedule.setRequiredNumber(requiredNumber, startTime, endTime);
+
+        String[] workingEmployeesBefore = workschedule.readSchedule(7).workingEmployees;
+
+        assertTrue(workschedule.addWorkingPeriod(employee, startTime, endTime)); //The method returns true, employee is added
+
+        assertTrue(workschedule.addWorkingPeriod(employee2, startTime, endTime)); //The method returns true, employee2 is added
+
+        assertFalse(scheduleUnchanged(workingEmployeesBefore, 7)); //The schedule has been changed
+    }
+
     private boolean scheduleUnchanged(String[] workingEmployeesBefore, int time) {
         return Arrays.equals(workingEmployeesBefore, workschedule.readSchedule(time).workingEmployees);
     }
