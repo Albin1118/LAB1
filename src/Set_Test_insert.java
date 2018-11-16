@@ -22,7 +22,7 @@ public class Set_Test_insert {
     }
 
     /**
-     * If you try insert an int into a set containing another int, the result will be sorted
+     * If you try insert an int into a set containing a larger int, the result will be sorted
      */
     @Test
     public void set_test_insert_part2(){
@@ -92,6 +92,20 @@ public class Set_Test_insert {
         set.insert(y);
 
         int[]expected = {3};
+        int[]result = set.toArray();
+
+        assertArrayEquals(expected, result);
+    }
+
+    @Test
+    public void set_test_insert_part4(){
+        int x = 5;
+        int y = 10;
+
+        set.insert(x);
+        set.insert(y);
+
+        int[]expected = {5, 10};
         int[]result = set.toArray();
 
         assertArrayEquals(expected, result);

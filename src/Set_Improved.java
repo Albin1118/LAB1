@@ -19,13 +19,12 @@ public class Set_Improved {
         for (int i = 0; i < a.size(); i++) {
             if (a.get(i) > x) {
                 a.add(i, x);
-                return;
+                return; //changed from break to return. break caused the function to add an int twice
             } else {
                 if (a.get(i) == x) {
-                    return;
+                    return; //changed from break to return. break caused the function to add a duplicate int when it shouldn't
                 }
             }
-
         }
         a.add(x);
 
