@@ -61,7 +61,7 @@ public class Set_Improved {
 
     public boolean containsArithTriple() {
         for (int i = 0; i < a.size(); i++) {
-            for (int j = 0; j <= i; j++) {
+            for (int j = 0; j < i; j++) {
                 if (member(2 * a.get(i) - a.get(j))) return true;
             }
         }
