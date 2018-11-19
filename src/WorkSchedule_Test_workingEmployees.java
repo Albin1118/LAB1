@@ -16,7 +16,7 @@ public class WorkSchedule_Test_workingEmployees {
      * workingEmployees() returns an array containing the name of the employee
      */
     @Test
-    public void workingEmployees_test_part1(){
+    public void test_workingEmployees_part1(){
         int startTime = 5;
         int endTime = 10;
         int requiredNumber = 2;
@@ -35,7 +35,7 @@ public class WorkSchedule_Test_workingEmployees {
      * Tests partition 2 - Checks that when startTime > endTime, workingEmployees() returns an empty array
      */
     @Test
-    public void workingEmployees_test_part2(){
+    public void test_workingEmployees_part2(){
         int startTime = 10;
         int endTime = 5;
         int requiredNumber = 2;
