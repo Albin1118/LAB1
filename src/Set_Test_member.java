@@ -18,7 +18,7 @@ public class Set_Test_member {
     }
 
     /**
-     * Checking if an int is a member of a set containing one larger int will return false
+         * Checking if an int is a member of a set containing one larger int will return false
      */
     @Test
     public void set_test_member_part2(){
@@ -53,7 +53,9 @@ public class Set_Test_member {
         assertFalse(set.member(y)); //enters the for-loop, then exits the loop and returns false
     }
 
-
+    /**
+     * Checks if a member can be found among other ints
+     */
     @Test
     public void set_test_member_extraTest(){
         int x = 5;
@@ -66,6 +68,10 @@ public class Set_Test_member {
         assertTrue(set.member(y));
     }
 
+
+    /**
+     * Checks that an int that is not part of a set will make the method return false
+     */
     @Test
     public void set_test_member_extraTest2(){
         int x = 5;

@@ -10,7 +10,7 @@ public class Set_Test_section {
     //Set set2 = new Set();
 
     /**
-     *
+     * If a set contains one int, that is also present in another set with several ints, the result will be an empty array
      */
     @Test
     public void set_test_section_part1(){
@@ -30,7 +30,7 @@ public class Set_Test_section {
     }
 
     /**
-     *
+     * This test will execute the code at line 54(i++)
      */
     @Test
     public void set_test_section_part2(){
@@ -50,7 +50,7 @@ public class Set_Test_section {
     }
 
     /**
-     *
+     * This test will execut the code at line 56(j++)
      */
     @Test
     public void set_test_section_part3(){
@@ -70,7 +70,7 @@ public class Set_Test_section {
     }
 
     /**
-     *
+     * If two sets contain the same elements, the result will be an empty array
      */
     @Test
     public void set_test_section_part4(){

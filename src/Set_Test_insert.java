@@ -97,6 +97,10 @@ public class Set_Test_insert {
         assertArrayEquals(expected, result);
     }
 
+
+    /**
+     * If you try insert an int into a set containing a smaller int, the result will be sorted
+     */
     @Test
     public void set_test_insert_part4(){
         int x = 5;
