@@ -48,6 +48,11 @@ public class WorkSchedule_Test_workingEmployees {
         assertTrue(scheduleUnchanged(workingEmployeesBefore, 10)); //Schedule is unchanged
     }
 
+    /**
+     * Method used to check if the schedule is unchanged. If one hour is changed in the interval startTime--endTime,
+     * by addWorkingPeriod(), then all hours will be changed. The schedule is therefore unchanged if the workingEmployees
+     * of an hour is the same before as after.
+     */
     private boolean scheduleUnchanged(String[] workingEmployeesBefore, int time) {
         return Arrays.equals(workingEmployeesBefore, workschedule.readSchedule(time).workingEmployees);
     }

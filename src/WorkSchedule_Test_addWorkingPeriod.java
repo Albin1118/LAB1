@@ -11,6 +11,11 @@ public class WorkSchedule_Test_addWorkingPeriod {
     private WorkSchedule workschedule = new WorkSchedule(size);
     private String employee = "name";
 
+
+    /**
+     * Tests partition 1 - When all criteria are fulfilled, addWorkingPeriod() will return true and employee will
+     * be added
+     */
     @Test
     public void test_addWorkingPeriod_part1(){
         int startTime = 5;
@@ -25,7 +30,7 @@ public class WorkSchedule_Test_addWorkingPeriod {
     }
 
     /**
-     * When starttime < 0 addWorkingPeriod returns false
+     * Tests partition 2 - When starttime < 0, addWorkingPeriod returns false
      */
     @Test
     public void test_addWorkingPeriod_part2(){
@@ -36,12 +41,12 @@ public class WorkSchedule_Test_addWorkingPeriod {
         workschedule.setRequiredNumber(requiredNumber, 0, endTime);
         String[] workingEmployeesBefore = workschedule.readSchedule(2).workingEmployees;
 
-        assertFalse(workschedule.addWorkingPeriod(employee, startTime, endTime));
-        assertTrue(scheduleUnchanged(workingEmployeesBefore, 2));
+        assertFalse(workschedule.addWorkingPeriod(employee, startTime, endTime)); // The method returns false
+        assertTrue(scheduleUnchanged(workingEmployeesBefore, 2)); //Schedule is unchanged
     }
 
     /**
-     * When endtime >= size(size of the schedule) addWorkingPeriod returns false
+     * Tests partition 3 - When endtime >= size(size of the schedule) addWorkingPeriod returns false
      */
     @Test
     public void test_addWorkingPeriod_part3(){
@@ -52,12 +57,12 @@ public class WorkSchedule_Test_addWorkingPeriod {
         workschedule.setRequiredNumber(requiredNumber, startTime, size-1);
         String[] workingEmployeesBefore = workschedule.readSchedule(20).workingEmployees;
 
-        assertFalse(workschedule.addWorkingPeriod(employee, startTime, endTime));
-        assertTrue(scheduleUnchanged(workingEmployeesBefore, 20));
+        assertFalse(workschedule.addWorkingPeriod(employee, startTime, endTime)); // The method returns false
+        assertTrue(scheduleUnchanged(workingEmployeesBefore, 20)); //Schedule is unchanged
     }
 
     /**
-     * When starttime > endtime addWorkingPeriod returns false
+     * Tests partition 4 - When starttime > endtime, addWorkingPeriod returns false
      */
     @Test
     public void test_addWorkingPeriod_part4(){
@@ -68,12 +73,12 @@ public class WorkSchedule_Test_addWorkingPeriod {
         workschedule.setRequiredNumber(requiredNumber, startTime, endTime);
         String[] workingEmployeesBefore = workschedule.readSchedule(10).workingEmployees;
 
-        assertFalse(workschedule.addWorkingPeriod(employee, startTime, endTime));
-        assertTrue(scheduleUnchanged(workingEmployeesBefore, 10));
+        assertFalse(workschedule.addWorkingPeriod(employee, startTime, endTime)); // The method returns false
+        assertTrue(scheduleUnchanged(workingEmployeesBefore, 10)); //Schedule is unchanged
     }
 
     /**
-     * When the required number for an hour in the interval starttime-endtime is already met, addWorkingPeriod returns false
+     * Tests partition 5 - When the required number for an hour in the interval startTime--endTime is already met, addWorkingPeriod returns false
      * and schedule is unchanged
      */
     @Test
@@ -85,12 +90,13 @@ public class WorkSchedule_Test_addWorkingPeriod {
         workschedule.setRequiredNumber(requiredNumber, startTime, endTime);
         String[] workingEmployeesBefore = workschedule.readSchedule(7).workingEmployees;
 
-        assertFalse(workschedule.addWorkingPeriod(employee, startTime, endTime));
-        assertTrue(scheduleUnchanged(workingEmployeesBefore, 7));
+        assertFalse(workschedule.addWorkingPeriod(employee, startTime, endTime)); // The method returns false
+        assertTrue(scheduleUnchanged(workingEmployeesBefore, 7)); //Schedule is unchanged
     }
 
     /**
-     * When an employee is already added to an hour in the interval starttime-endtime, addWorkingPeriod returns false
+     * Tests partition 6 - When an employee is already added to an hour in the interval startTime--endTime,
+     * addWorkingPeriod returns false
      */
     @Test
     public void test_addWorkingPeriod_part6(){
@@ -106,6 +112,11 @@ public class WorkSchedule_Test_addWorkingPeriod {
         assertTrue(scheduleUnchanged(workingEmployeesBefore, 7));
     }
 
+    /**
+     * Method used to check if the schedule is unchanged. If one hour is changed in the interval startTime--endTime,
+     * by addWorkingPeriod(), then all hours will be changed. The schedule is therefore unchanged if the workingEmployees
+     * of an hour is the same before as after.
+     */
     private boolean scheduleUnchanged(String[] workingEmployeesBefore, int time) {
         return Arrays.equals(workingEmployeesBefore, workschedule.readSchedule(time).workingEmployees);
     }
