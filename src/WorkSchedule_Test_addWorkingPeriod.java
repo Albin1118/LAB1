@@ -30,6 +30,54 @@ public class WorkSchedule_Test_addWorkingPeriod {
     }
 
     /**
+     * Border case when starttime = 0
+     */
+    @Test
+    public void test_addWorkingPeriod_part1_border1(){
+        int startTime = 0;
+        int endTime = 10;
+        int requiredNumber = 2;
+
+        workschedule.setRequiredNumber(requiredNumber, startTime, endTime);
+        String[] workingEmployeesBefore = workschedule.readSchedule(7).workingEmployees;
+
+        assertTrue(workschedule.addWorkingPeriod(employee, startTime, endTime)); //The method returns true, employee is added
+        assertFalse(scheduleUnchanged(workingEmployeesBefore, 7)); //The schedule has been changed
+    }
+
+    /**
+     * Border case when starttime = endtime
+     */
+    @Test
+    public void test_addWorkingPeriod_part1_border2(){
+        int startTime = 10;
+        int endTime = 10;
+        int requiredNumber = 2;
+
+        workschedule.setRequiredNumber(requiredNumber, startTime, endTime);
+        String[] workingEmployeesBefore = workschedule.readSchedule(10).workingEmployees;
+
+        assertTrue(workschedule.addWorkingPeriod(employee, startTime, endTime)); //The method returns true, employee is added
+        assertFalse(scheduleUnchanged(workingEmployeesBefore, 10)); //The schedule has been changed
+    }
+
+    /**
+     * Border case when endtime = size-1
+     */
+    @Test
+    public void test_addWorkingPeriod_part1_border3(){
+        int startTime = 10;
+        int endTime = 23;
+        int requiredNumber = 2;
+
+        workschedule.setRequiredNumber(requiredNumber, startTime, endTime);
+        String[] workingEmployeesBefore = workschedule.readSchedule(15).workingEmployees;
+
+        assertTrue(workschedule.addWorkingPeriod(employee, startTime, endTime)); //The method returns true, employee is added
+        assertFalse(scheduleUnchanged(workingEmployeesBefore, 15)); //The schedule has been changed
+    }
+
+    /**
      * Tests partition 2 - When starttime < 0, addWorkingPeriod returns false
      */
     @Test
@@ -43,6 +91,38 @@ public class WorkSchedule_Test_addWorkingPeriod {
 
         assertFalse(workschedule.addWorkingPeriod(employee, startTime, endTime)); // The method returns false
         assertTrue(scheduleUnchanged(workingEmployeesBefore, 2)); //Schedule is unchanged
+    }
+
+    /**
+     * Border case when starttime = MIN_INT-1
+     */
+    @Test
+    public void test_addWorkingPeriod_part2_border1(){
+        int startTime = Integer.MIN_VALUE;
+        int endTime = 10;
+        int requiredNumber = 2;
+
+        workschedule.setRequiredNumber(requiredNumber, 0, endTime);
+        String[] workingEmployeesBefore = workschedule.readSchedule(2).workingEmployees;
+
+        assertFalse(workschedule.addWorkingPeriod(employee, startTime, endTime));
+        assertTrue(scheduleUnchanged(workingEmployeesBefore, 2));
+    }
+
+    /**
+     * Border case when starttime = -1
+     */
+    @Test
+    public void test_addWorkingPeriod_part2_border2(){
+        int startTime = -1;
+        int endTime = 10;
+        int requiredNumber = 2;
+
+        workschedule.setRequiredNumber(requiredNumber, 0, endTime);
+        String[] workingEmployeesBefore = workschedule.readSchedule(2).workingEmployees;
+
+        assertFalse(workschedule.addWorkingPeriod(employee, startTime, endTime));
+        assertTrue(scheduleUnchanged(workingEmployeesBefore, 2));
     }
 
     /**
@@ -62,6 +142,38 @@ public class WorkSchedule_Test_addWorkingPeriod {
     }
 
     /**
+     * Border case when endtime = size
+     */
+    @Test
+    public void test_addWorkingPeriod_part3_border1(){
+        int startTime = 5;
+        int endTime = 24;
+        int requiredNumber = 2;
+
+        workschedule.setRequiredNumber(requiredNumber, startTime, size-1);
+        String[] workingEmployeesBefore = workschedule.readSchedule(20).workingEmployees;
+
+        assertFalse(workschedule.addWorkingPeriod(employee, startTime, endTime));
+        assertTrue(scheduleUnchanged(workingEmployeesBefore, 20));
+    }
+
+    /**
+     * Border case when endtime = MAX_INT
+     */
+    @Test
+    public void test_addWorkingPeriod_part3_border2(){
+        int startTime = 5;
+        int endTime = Integer.MAX_VALUE;
+        int requiredNumber = 2;
+
+        workschedule.setRequiredNumber(requiredNumber, startTime, size-1);
+        String[] workingEmployeesBefore = workschedule.readSchedule(20).workingEmployees;
+
+        assertFalse(workschedule.addWorkingPeriod(employee, startTime, endTime));
+        assertTrue(scheduleUnchanged(workingEmployeesBefore, 20));
+    }
+
+    /**
      * Tests partition 4 - When starttime > endtime, addWorkingPeriod returns false
      */
     @Test
@@ -75,6 +187,22 @@ public class WorkSchedule_Test_addWorkingPeriod {
 
         assertFalse(workschedule.addWorkingPeriod(employee, startTime, endTime)); // The method returns false
         assertTrue(scheduleUnchanged(workingEmployeesBefore, 10)); //Schedule is unchanged
+    }
+
+    /**
+     * Border case when starttime = endtime+1
+     */
+    @Test
+    public void test_addWorkingPeriod_part4_border1(){
+        int startTime = 11;
+        int endTime = 10;
+        int requiredNumber = 2;
+
+        workschedule.setRequiredNumber(requiredNumber, startTime, endTime);
+        String[] workingEmployeesBefore = workschedule.readSchedule(11).workingEmployees;
+
+        assertFalse(workschedule.addWorkingPeriod(employee, startTime, endTime));
+        assertTrue(scheduleUnchanged(workingEmployeesBefore, 11));
     }
 
     /**
