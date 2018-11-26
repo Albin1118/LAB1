@@ -12,7 +12,7 @@ class LimitedStack{
         capacity > 0 && arr.Length==capacity && -1 <= top < capacity //checking arr != null is unnecessary
       }
 
-      predicate Empty()
+      predicate method Empty()
       reads this;
       {
         top == -1
@@ -39,24 +39,27 @@ class LimitedStack{
       }
 
 
-
+      // Returns true if and only if the stack is empty.
       method isEmpty() returns (res : bool)
       requires Valid()
       ensures res == Empty()
       {
-        if top == -1{ res := true;}
+        if Empty(){ res := true;}
         else{ res := false;}
       }
 
 
-/*
+
       // Returns the top element of the stack, without removing it.
       method Peek() returns (elem : int)
-      
+      requires Valid()
+      requires !Empty()
+      ensures elem == arr[top]
+      ensures old(top)==top && old(arr[top]) == arr[top]
       {
-        
+        elem := arr[top];
       }
-*/
+
 
 /*
       // Pushed an element to the top of a (non full) stack. 
