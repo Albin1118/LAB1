@@ -61,22 +61,26 @@ class LimitedStack{
       }
 
 
-/*
+
       // Pushed an element to the top of a (non full) stack. 
       method Push(elem : int)
-      
+
       {
         
       }
-*/
+
       // Pops the top element off the stack.
-/*  
       method Pop() returns (elem : int)
-      
+      requires Valid();
+      requires !Empty()
+      ensures elem == old(arr[top])
+      ensures top == old(top) - 1
       {
-        
+        elem := arr[top];
+        arr[top] := 0;
+        top--;
       }
- */
+
  
       method Shift()
       requires Valid() && !Empty();
