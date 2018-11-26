@@ -56,6 +56,7 @@ class LimitedStack{
       requires !Empty()
       ensures elem == arr[top]
       ensures old(top)==top && old(arr[top]) == arr[top]
+      ensures forall i : int :: 0 <= i <= top ==> arr[i] == old(arr[i])
       {
         elem := arr[top];
       }
@@ -69,6 +70,7 @@ class LimitedStack{
       requires !Full()
       ensures top == old(top) + 1
       ensures arr[top] == elem
+      ensures forall i : int :: 0 <= i < top ==> arr[i] == old(arr[i])
       {
         top := top + 1;
         arr[top] := elem;
@@ -81,6 +83,7 @@ class LimitedStack{
       requires !Empty()
       ensures elem == old(arr[top])
       ensures top == old(top) - 1
+      ensures forall i : int :: 0 <= i <= top ==> arr[i] == old(arr[i])
       {
         elem := arr[top];
         arr[top] := 0;
@@ -126,7 +129,7 @@ class LimitedStack{
         }
       }
 
-/*
+
 
 // When you are finished,  all the below assertions should be provable. 
 // Feel free to add extra ones as well.
@@ -159,5 +162,5 @@ class LimitedStack{
            assert s.arr[0] == 32;
                      
        }
-*/
+
 }
