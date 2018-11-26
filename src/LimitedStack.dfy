@@ -23,19 +23,21 @@ class LimitedStack{
       {
         top == (capacity -1)
       }
- /*     
+
       method Init(c : int)
       modifies this;
-      requires ? 
+      requires c > 0
 
       ensures fresh(arr); // ensures arr is a newly created object.
-      // Additional post-condition to be given here!
+      ensures Empty() // ensures that the created stack is empty
+      ensures Valid() // ensures that the created array is valid
+      ensures arr.Length == c // ensures that the size of the array is c
       {
         capacity := c;
         arr := new int[c];
         top := -1;
       }
-*/
+
 
 /*      
       method isEmpty() returns (res : bool)
