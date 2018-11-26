@@ -71,6 +71,7 @@ class LimitedStack{
 
       // Pops the top element off the stack.
       method Pop() returns (elem : int)
+      modifies this.arr, this`top
       requires Valid();
       requires !Empty()
       ensures elem == old(arr[top])
@@ -78,7 +79,7 @@ class LimitedStack{
       {
         elem := arr[top];
         arr[top] := 0;
-        top--;
+        top := top - 1;
       }
 
  
