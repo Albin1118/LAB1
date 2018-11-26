@@ -18,7 +18,7 @@ class LimitedStack{
         top == -1
       }
 
-      predicate Full()
+      predicate method Full()
       reads this;
       {
         top == (capacity -1)
@@ -108,14 +108,23 @@ class LimitedStack{
         top := top - 1;
       }
 
-/*
-      //Push onto full stack, oldest element is discarded.
+//Push onto full stack, oldest element is discarded.
       method Push2(elem : int)
-      
+      modifies this.arr, this`top
+      requires Valid()
+      ensures old(!Full()) ==> (top == old(top) + 1) && arr[top] == elem
+      ensures old(Full()) ==> (top == old(top)) && (arr[top] == elem) && (forall i : int :: 0 <= i < capacity - 2 ==> arr[i] == old(arr[i + 1]))
       {
-        
+        if !Full(){
+            top := top + 1;
+            arr[top] := elem;
+        }else{
+            Shift();
+            top := top + 1;
+            arr[top] := elem;
+
+        }
       }
-*/
 
 /*
 
