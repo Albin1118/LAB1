@@ -39,13 +39,15 @@ class LimitedStack{
       }
 
 
-/*      
+
       method isEmpty() returns (res : bool)
-      
+      requires Valid()
+      ensures res == Empty()
       {
-        
+        if top == -1{ res := true;}
+        else{ res := false;}
       }
-*/
+
 
 /*
       // Returns the top element of the stack, without removing it.
