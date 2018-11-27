@@ -55,7 +55,7 @@ class LimitedStack{
       requires Valid()
       requires !Empty()
       ensures elem == arr[top]
-      ensures old(top)==top && old(arr[top]) == arr[top]
+      ensures top == old(top)
       ensures forall i : int :: 0 <= i <= top ==> arr[i] == old(arr[i])
       {
         elem := arr[top];
@@ -115,18 +115,14 @@ class LimitedStack{
       method Push2(elem : int)
       modifies this.arr, this`top
       requires Valid()
-      ensures old(!Full()) ==> (top == old(top) + 1) && arr[top] == elem
-      ensures old(Full()) ==> (top == old(top)) && (arr[top] == elem) && (forall i : int :: 0 <= i < capacity - 2 ==> arr[i] == old(arr[i + 1]))
+      ensures old(!Full()) ==> (top == old(top) + 1) && arr[top] == elem && (forall i : int :: 0 <= i < top ==> arr[i] == old(arr[i]))
+      ensures old(Full()) ==> (top == old(top)) && (arr[top] == elem) && (forall i : int :: 0 <= i < top - 1 ==> arr[i] == old(arr[i + 1]))
       {
-        if !Full(){
-            top := top + 1;
-            arr[top] := elem;
-        }else{
+        if Full(){
             Shift();
-            top := top + 1;
-            arr[top] := elem;
-
         }
+        top := top + 1;
+        arr[top] := elem;
       }
 
 
