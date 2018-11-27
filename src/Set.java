@@ -1,4 +1,4 @@
-import java.util.*;
+import java.util.ArrayList;
 
 public class Set {
     private ArrayList<Integer> a;
@@ -19,14 +19,15 @@ public class Set {
         for (int i = 0; i < a.size(); i++) {
             if (a.get(i) > x) {
                 a.add(i, x);
-                break;
+                return; //changed from break to return. break caused the function to add an int twice
             } else {
                 if (a.get(i) == x) {
-                    break;
+                    return; //changed from break to return. break caused the function to add a duplicate int when it shouldn't
                 }
             }
         }
         a.add(x);
+
     }
 
     public boolean member(int x) {
@@ -46,7 +47,7 @@ public class Set {
         for (int i = 0, j = 0; i < a.size() && j < s.a.size();) {
             if (a.get(i).equals(s.a.get(j))) {
                 a.remove(i);
-                i++;
+                //i++;this caused an error. when an item is removed from a the index shouldn't increase
                 j++;
             } else {
                 if (a.get(i) < s.a.get(j)) {
@@ -60,7 +61,7 @@ public class Set {
 
     public boolean containsArithTriple() {
         for (int i = 0; i < a.size(); i++) {
-            for (int j = 0; j <= i; j++) {
+            for (int j = 0; j < i; j++) { // j <= i caused an error. When i=0 and j=0, a.get(i) and a.get(j) is the same
                 if (member(2 * a.get(i) - a.get(j))) return true;
             }
         }

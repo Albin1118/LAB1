@@ -4,10 +4,8 @@ import static org.junit.Assert.*;
 
 public class Set_Test_section {
 
-    Set_Improved set1 = new Set_Improved();
-    Set_Improved set2 = new Set_Improved();
-    //Set set1 = new Set();
-    //Set set2 = new Set();
+    Set set1 = new Set();
+    Set set2 = new Set();
 
     /**
      * If a set contains one int, that is also present in another set with several ints, the result will be an empty array

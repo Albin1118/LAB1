@@ -4,8 +4,7 @@ import static org.junit.Assert.*;
 
 public class Set_Test_containsArithTriple {
 
-    Set_Improved set = new Set_Improved();
-    //Set set1 = new Set();
+    Set set = new Set();
 
 
     /**

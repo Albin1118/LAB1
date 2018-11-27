@@ -4,8 +4,7 @@ import static org.junit.Assert.*;
 
 public class Set_Test_member {
 
-    Set_Improved set = new Set_Improved();
-    //Set set = new Set();
+    Set set = new Set();
 
     /**
      * Checking if an empty set contains any int will return false

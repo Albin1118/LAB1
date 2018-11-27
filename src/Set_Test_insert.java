@@ -4,8 +4,7 @@ import static org.junit.Assert.*;
 
 public class Set_Test_insert {
 
-    Set_Improved set = new Set_Improved();
-    //Set set = new Set();
+    Set set = new Set();
 
     /**
      * When adding an int to an empty set, the set will only contain the added int
