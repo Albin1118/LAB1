@@ -26,13 +26,13 @@ class LimitedStack{
 
       method Init(c : int)
       modifies this;
-      requires c > 0
+      requires c > 0;
 
       ensures fresh(arr); // ensures arr is a newly created object.
-      ensures Empty() // ensures that the created stack is empty
-      ensures Valid() // ensures that the created array is valid
-      ensures capacity == c // ensures that the capacity is c
-      ensures arr.Length == c // ensures that the size of the array is c
+      ensures Empty(); // ensures that the created stack is empty
+      ensures Valid(); // ensures that the created array is valid
+      ensures capacity == c; // ensures that the capacity is c
+      ensures arr.Length == c; // ensures that the size of the array is c
       {
         capacity := c;
         arr := new int[c];
@@ -42,8 +42,8 @@ class LimitedStack{
 
       // Returns true if and only if the stack is empty.
       method isEmpty() returns (res : bool)
-      requires Valid()
-      ensures res == Empty()
+      requires Valid();
+      ensures res == Empty();
       {
         if Empty(){ res := true;}
         else{ res := false;}
@@ -53,11 +53,11 @@ class LimitedStack{
 
       // Returns the top element of the stack, without removing it.
       method Peek() returns (elem : int)
-      requires Valid()
-      requires !Empty()
-      ensures elem == arr[top]
-      ensures top == old(top)
-      ensures forall i : int :: 0 <= i <= top ==> arr[i] == old(arr[i])
+      requires Valid();
+      requires !Empty();
+      ensures elem == arr[top];
+      ensures top == old(top);
+      ensures forall i : int :: 0 <= i <= top ==> arr[i] == old(arr[i]);
       {
         elem := arr[top];
       }
@@ -66,12 +66,12 @@ class LimitedStack{
 
       // Pushed an element to the top of a (non full) stack.
       method Push(elem : int)
-      modifies this.arr, this`top
-      requires Valid()
-      requires !Full()
-      ensures top == old(top) + 1
-      ensures arr[top] == elem
-      ensures forall i : int :: 0 <= i < top ==> arr[i] == old(arr[i])
+      modifies this.arr, this`top;
+      requires Valid();
+      requires !Full();
+      ensures top == old(top) + 1;
+      ensures arr[top] == elem;
+      ensures forall i : int :: 0 <= i < top ==> arr[i] == old(arr[i]);
       {
         top := top + 1;
         arr[top] := elem;
@@ -79,12 +79,12 @@ class LimitedStack{
 
       // Pops the top element off the stack.
       method Pop() returns (elem : int)
-      modifies this.arr, this`top
+      modifies this.arr, this`top;
       requires Valid();
-      requires !Empty()
-      ensures elem == old(arr[top])
-      ensures top == old(top) - 1
-      ensures forall i : int :: 0 <= i <= top ==> arr[i] == old(arr[i])
+      requires !Empty();
+      ensures elem == old(arr[top]);
+      ensures top == old(top) - 1;
+      ensures forall i : int :: 0 <= i <= top ==> arr[i] == old(arr[i]);
       {
         elem := arr[top];
         arr[top] := 0;
@@ -114,10 +114,10 @@ class LimitedStack{
 
 //Push onto full stack, oldest element is discarded.
       method Push2(elem : int)
-      modifies this.arr, this`top
-      requires Valid()
-      ensures old(!Full()) ==> (top == old(top) + 1) && arr[top] == elem && (forall i : int :: 0 <= i < top ==> arr[i] == old(arr[i]))
-      ensures old(Full()) ==> (top == old(top)) && (arr[top] == elem) && (forall i : int :: 0 <= i < top - 1 ==> arr[i] == old(arr[i + 1]))
+      modifies this.arr, this`top;
+      requires Valid();
+      ensures old(!Full()) ==> (top == old(top) + 1) && arr[top] == elem && (forall i : int :: 0 <= i < top ==> arr[i] == old(arr[i]));
+      ensures old(Full()) ==> (top == old(top)) && (arr[top] == elem) && (forall i : int :: 0 <= i < top - 1 ==> arr[i] == old(arr[i + 1]));
       {
         if Full(){
             Shift();
