@@ -79,4 +79,33 @@ class Sorting{
       {
       }
       */
+
+      /* 4a
+      method sort(arr : array<int>)
+        modifies arr;
+        requires arr != null;
+        requires arr.Length > 0;
+        ensures sorted(arr[..]);
+        ensures p(arr[..], old(arr[..]))
+      {
+        /*...*/
+      }
+      */
+
+      // 4b
+      method clear(arr : array<int>)
+        modifies arr;
+        requires arr != null;
+        requires arr.Length > 0;
+        ensures sorted(arr[..]);
+      {
+        var i : int := 0;
+        while (i < arr.Length)
+        invariant 0 <= i <= arr.Length;
+        invariant forall j :: 0 <= j < i ==> arr[j] == 0;
+        {
+          arr[i] := 0;
+          i := i + 1;
+        }
+      }
 }
