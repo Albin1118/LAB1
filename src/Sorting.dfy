@@ -48,13 +48,13 @@ class Sorting{
       {
       }
 
-      // a and b have the same elements (not considering order)
+      // the sequences a and b have the same elements (not considering order)
       predicate p(a : seq<int>, b : seq<int>)
       {
         multiset(a) == multiset(b)
       }
 
-      // for all elements e in a or b, e appears the same amount of times in a and b
+      // for all elements e in the sequences a or b, e appears the same amount of times in a and b
       predicate p2(a : seq<int>, b : seq<int>)
       {
         forall i :: (i in a || i in b) ==> (occurrences(a, i) == occurrences(b, i))
