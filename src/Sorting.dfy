@@ -7,7 +7,7 @@ class Sorting{
 
       predicate sorted2(s: seq<int>)
       {
-        1 < |s| ==> (forall i :: 0 < i < |s| ==> s[0] <= s[i]) && sorted2(s[1..])
+        |s| > 1 ==> s[0] <= s[1] && sorted2(s[1..])
       }
 
       ghost method SortedShortSequences(s : seq<int>)
