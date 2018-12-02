@@ -7,7 +7,7 @@ class LimitedStack{
 
       // This predicate express a class invariant: All objects of this calls should satisfy this.
       predicate Valid()
-      reads this;
+      reads this, this.arr;
       {
         capacity > 0 && arr.Length==capacity && -1 <= top < capacity //checking arr != null is unnecessary
       }
@@ -31,6 +31,7 @@ class LimitedStack{
       ensures fresh(arr); // ensures arr is a newly created object.
       ensures Empty() // ensures that the created stack is empty
       ensures Valid() // ensures that the created array is valid
+      ensures capacity == c // ensures that the capacity is c
       ensures arr.Length == c // ensures that the size of the array is c
       {
         capacity := c;
@@ -63,7 +64,7 @@ class LimitedStack{
 
 
 
-      // Pushed an element to the top of a (non full) stack. 
+      // Pushed an element to the top of a (non full) stack.
       method Push(elem : int)
       modifies this.arr, this`top
       requires Valid()
@@ -90,7 +91,7 @@ class LimitedStack{
         top := top - 1;
       }
 
- 
+
       method Shift()
       requires Valid() && !Empty();
       ensures Valid();
