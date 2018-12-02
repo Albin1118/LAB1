@@ -17,12 +17,31 @@ class Sorting{
       {
       }
 
+      // Let s be a sequence such that sorted(s). Prove that sorted2(s) by induction:
+      //   Base:
+      //     |s| <= 1 ==> sorted2(s).
+      //   Step:
+      //     Assume that sorted2(s[1..]). Prove that sorted2(s[0] + s[1..]):
+      //       By definition of sorted(s) we know that (i == 0 && j == 1) ==> s[0] <= s[1],
+      //       and because sorted2(s[1..]), we know that s[0] <= s[1] && sorted2(s[1..]) which means that sorted2(s).
+      //   The step case together with the base case proves that sorted(s) ==> sorted2(s) for every sequence s.
       ghost method SortedEquivalence(s : seq<int>)
         requires sorted(s);
         ensures sorted2(s);
       {
       }
 
+      // Let s be a sequence such that sorted2(s). Prove that sorted(s):
+      //   If (|s| <= 1):
+      //     sorted(s) is true because 0 <= i < j < |s| is false
+      //   Else:
+      //     By definition of sorted2(s) we know that:
+      //       sorted2(s)
+      //       <==> s[0] <= s[1] && sorted2(s[1..])
+      //       <==> s[0] <= s[1] && s[1] <= s[2] && ... && s[|s|-2] <= s[|s|-1]
+      //       <==> s[0] <= s[1] <= ... <= s[|s|-1]
+      //       <==> forall i,j :: 0 <= i < j < |s| ==> s[i] <= s[j]
+      //       <==> sorted(s)
       ghost method SortedEquivalence2(s : seq<int>)
         requires sorted2(s);
         ensures sorted(s);
