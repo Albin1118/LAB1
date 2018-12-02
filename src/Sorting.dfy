@@ -1,10 +1,13 @@
 
 class Sorting{
+
+      // 1a ===========================================================================================================
       predicate sorted(s : seq<int>)
       {
         forall i,j :: 0 <= i < j < |s| ==> s[i] <= s[j]
       }
 
+      // 1b ===========================================================================================================
       predicate sorted2(s: seq<int>)
       {
         |s| > 1 ==> s[0] <= s[1] && sorted2(s[1..])
@@ -17,6 +20,7 @@ class Sorting{
       {
       }
 
+      // 2ab ==========================================================================================================
       // Let s be a sequence such that sorted(s). Prove that sorted2(s) by induction:
       //   Base:
       //     |s| <= 1 ==> sorted2(s).
@@ -48,39 +52,28 @@ class Sorting{
       {
       }
 
+      // 3a ===========================================================================================================
       // the sequences a and b have the same elements (not considering order)
       predicate p(a : seq<int>, b : seq<int>)
       {
         multiset(a) == multiset(b)
       }
 
+      // 3b ===========================================================================================================
       // for all elements e in the sequences a or b, e occurs the same amount of times in a and b
       predicate p2(a : seq<int>, b : seq<int>)
       {
         forall i :: (i in a || i in b) ==> (occurrences(a, i) == occurrences(b, i))
       }
 
-      // how many times x occurs in s
+      // how many times the integer x occurs in the sequence s (auxiliary function)
       function occurrences(s : seq<int>, x : int) : int
       {
         if |s| > 0 then occurrences(s[1..], x) + (if s[0] == x then 1 else 0) else 0
       }
 
-      /* Dafny cannot prove these
-      ghost method PEquivalence(a : seq<int>, b : seq<int>)
-        requires p(a, b)
-        ensures p2(a, b)
-      {
-      }
-
-      ghost method PEquivalence2(a : seq<int>, b : seq<int>)
-        requires p2(a, b)
-        ensures p(a, b)
-      {
-      }
-      */
-
-      /* 4a
+      // 4a ===========================================================================================================
+      /*
       method sort(arr : array<int>)
         modifies arr;
         requires arr != null;
@@ -92,7 +85,7 @@ class Sorting{
       }
       */
 
-      // 4b
+      // 4b ===========================================================================================================
       method clear(arr : array<int>)
         modifies arr;
         requires arr != null;
