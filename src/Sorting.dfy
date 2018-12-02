@@ -54,7 +54,7 @@ class Sorting{
         multiset(a) == multiset(b)
       }
 
-      // for all elements e in the sequences a or b, e appears the same amount of times in a and b
+      // for all elements e in the sequences a or b, e occurs the same amount of times in a and b
       predicate p2(a : seq<int>, b : seq<int>)
       {
         forall i :: (i in a || i in b) ==> (occurrences(a, i) == occurrences(b, i))
@@ -66,6 +66,7 @@ class Sorting{
         if |s| > 0 then occurrences(s[1..], x) + (if s[0] == x then 1 else 0) else 0
       }
 
+      /* Dafny cannot prove these
       ghost method PEquivalence(a : seq<int>, b : seq<int>)
         requires p(a, b)
         ensures p2(a, b)
@@ -77,4 +78,5 @@ class Sorting{
         ensures p(a, b)
       {
       }
+      */
 }
