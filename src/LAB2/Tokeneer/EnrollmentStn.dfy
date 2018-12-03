@@ -1,6 +1,12 @@
 class EnrollmentStn {
     var users : array<int>;
 
+    predicate usersFull()
+        reads this`users, users;
+    {
+        !(exists i :: 0 <= i < users.Length && users[i] != 0)
+    }
+
     predicate method containsUser(id : int)
         reads this`users, users;
     {
@@ -10,8 +16,12 @@ class EnrollmentStn {
     method Init()
         modifies this;
         ensures fresh(users);
+        ensures forall i :: 0 <= i < users.Length ==> users[i] == 0;
     {
         users := new int[10];
+        forall(i | 0 <= i < users.Length) {
+            users[i] := 0;
+        }
     }
 
     method enroll(fingerprint : int, clearance : int) returns (token : Token?)
@@ -20,8 +30,8 @@ class EnrollmentStn {
         requires 1 <= clearance <= 3;
         ensures users.Length > 0;
         ensures containsUser(fingerprint);
-        ensures old(containsUser(fingerprint)) ==> token == null;
-        ensures old(!containsUser(fingerprint)) ==> token != null;
+        ensures old(containsUser(fingerprint)) <==> token == null;
+        ensures old(!containsUser(fingerprint)) ==> fresh(token) && token.fingerprint == fingerprint && token.clearance == clearance && token.valid == true && (usersFull() ==> fresh(users));
     {
         if (containsUser(fingerprint)) {
             token := null;

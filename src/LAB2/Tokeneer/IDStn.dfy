@@ -43,7 +43,6 @@ class IDStn {
 
     method close()
         modifies this`doorOpen;
-        requires doorOpen;
         ensures !doorOpen;
     {
         doorOpen := false;
