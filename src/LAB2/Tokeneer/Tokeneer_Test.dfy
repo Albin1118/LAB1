@@ -100,16 +100,12 @@ class Tokeneer_Test {
 
     method enroll_failure()
     {
-        var enrollmentStn := new EnrollmentStn.Init();
-
         var id := 114;
-        var token := enrollmentStn.enroll(id, 2);
-        assert token != null;
-        assert token.fingerprint == 114;
-        assert token.clearance == 2;
-        assert token.valid;
+        var enrollmentStn := new EnrollmentStn;
+        var token1 := enrollmentStn.InitWithUser(id, 2);
 
-        //When attempting to retrieve a second token, null is returned
+       //When attempting to retrieve a second token for the same id, null is returned
+
         var token2 := enrollmentStn.enroll(id, 2);
         assert token2 == null;
     }

@@ -33,16 +33,12 @@ class IDStn {
         ensures !validToken(id, token) ==> !token.valid && alarm;
         ensures old(validToken(id, token)) ==> token.valid;
         ensures old(validToken(id, token)) && validClearance(token) <==> doorOpen;
-        ensures old(!validClearance(token)) ==> !doorOpen
     {
         if (!validToken(id, token)) {
             token.invalidate();
             alarm := true;
-            doorOpen := false;
         } else if ( validToken(id, token) && validClearance(token)) {
             doorOpen := true;
-        }else{
-            doorOpen := false;
         }
     }
 
