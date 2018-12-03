@@ -16,7 +16,6 @@ class EnrollmentStn {
 
     method enroll(fingerprint : int, clearance : int) returns (token : Token?)
         modifies this`users, users;
-        requires users != null;
         requires fingerprint != 0;
         requires 1 <= clearance <= 3;
         ensures users.Length > 0;

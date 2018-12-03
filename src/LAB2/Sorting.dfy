@@ -76,7 +76,6 @@ class Sorting{
       /*
       method sort(arr : array<int>)
         modifies arr;
-        requires arr != null;
         requires arr.Length > 0;
         ensures sorted(arr[..]);
         ensures p(arr[..], old(arr[..]))
@@ -88,7 +87,6 @@ class Sorting{
       // 4b ===========================================================================================================
       method clear(arr : array<int>)
         modifies arr;
-        requires arr != null;
         requires arr.Length > 0;
         ensures sorted(arr[..]);
       {
