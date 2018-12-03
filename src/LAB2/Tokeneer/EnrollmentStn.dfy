@@ -17,30 +17,12 @@ class EnrollmentStn {
         modifies this;
         ensures fresh(users);
         ensures forall i :: 0 <= i < users.Length ==> users[i] == 0;
+        ensures users.Length == 10;
     {
         users := new int[10];
         forall(i | 0 <= i < users.Length) {
             users[i] := 0;
         }
-    }
-
-
-    method InitWithUser(fingerprint : int, clearance : int) returns (token : Token)
-        modifies this;
-        requires fingerprint > 0;
-        requires 1<=clearance<=3
-        ensures fresh(users);
-        ensures users.Length == 10;
-        ensures users[0] == fingerprint;
-        ensures forall i :: 1 <= i < users.Length ==> users[i] == 0;
-        ensures fresh(token);
-    {
-        users := new int[10];
-        users[0] := fingerprint;
-        forall(i | 1 <= i < users.Length) {
-            users[i] := 0;
-        }
-        token := new Token.Init(fingerprint, clearance);
     }
 
     method enroll(fingerprint : int, clearance : int) returns (token : Token?)
