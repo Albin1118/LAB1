@@ -4,7 +4,7 @@ class EnrollmentStn {
     predicate usersFull()
         reads this`users, users;
     {
-        !(exists i :: 0 <= i < users.Length && users[i] != 0)
+        forall i :: 0 <= i < users.Length ==> users[i] != 0
     }
 
     predicate method containsUser(id : int)
@@ -31,7 +31,10 @@ class EnrollmentStn {
         ensures users.Length > 0;
         ensures containsUser(fingerprint);
         ensures old(containsUser(fingerprint)) <==> token == null;
-        ensures old(!containsUser(fingerprint)) ==> fresh(token) && token.fingerprint == fingerprint && token.clearance == clearance && token.valid == true && (usersFull() ==> fresh(users));
+        ensures old(!containsUser(fingerprint)) ==>
+            fresh(token) &&
+            token.fingerprint == fingerprint && token.clearance == clearance && token.valid == true &&
+            (old(usersFull()) ==> fresh(users));
     {
         if (containsUser(fingerprint)) {
             token := null;
