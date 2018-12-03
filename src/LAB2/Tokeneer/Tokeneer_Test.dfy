@@ -101,8 +101,8 @@ class Tokeneer_Test {
     method enroll_failure()
     {
         var enrollmentStn := new EnrollmentStn.Init();
-        var id := 114
-        enrollmentStn.users[0] := id //There is now a user with this id(with a token)
+        var id := 114;
+        enrollmentStn.users[0] := id; //There is now a user with this id(with a token)
 
        //When attempting to retrieve a second token for the same id, null is returned
         var token2 := enrollmentStn.enroll(id, 2);
