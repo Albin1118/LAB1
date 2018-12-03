@@ -30,6 +30,8 @@ class EnrollmentStn {
         requires fingerprint != 0;
         requires 1 <= clearance <= 3;
         ensures users.Length > 0;
+        ensures users.Length >= old(users.Length);
+        ensures forall i :: 0 <= i < old(users.Length) && old(users[i]) != 0 ==> old(users[i]) == users[i];
         ensures containsUser(fingerprint);
         ensures old(containsUser(fingerprint)) <==> token == null;
         ensures old(!containsUser(fingerprint)) ==>
