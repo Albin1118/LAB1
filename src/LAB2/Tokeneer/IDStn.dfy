@@ -4,13 +4,13 @@ class IDStn {
     var alarm : bool;
 
     predicate method validToken(id : int, token : Token)
-        reads token;
+        reads token`fingerprint, token`valid;
     {
         id == token.fingerprint && token.valid
     }
 
     predicate method validClearance(token : Token)
-        reads this, token;
+        reads this`securityLevel, token`clearance;
     {
         this.securityLevel <= token.clearance
     }
