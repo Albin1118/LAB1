@@ -37,7 +37,7 @@ class IDStn {
         if (!validToken(id, token)) {
             token.invalidate();
             alarm := true;
-        } else if ( validToken(id, token) && validClearance(token)) {
+        } else if (validClearance(token)) {
             doorOpen := true;
         }
     }
