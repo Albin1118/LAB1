@@ -31,7 +31,8 @@ class IDStn {
         modifies this`doorOpen, this`alarm, token`valid;
         requires !doorOpen;
         ensures !validToken(id, token) ==> !token.valid && alarm;
-        ensures validToken(id, token) && validClearance(token) <==> doorOpen;
+        ensures old(validToken(id, token)) ==> token.valid;
+        ensures old(validToken(id, token)) && validClearance(token) <==> doorOpen;
     {
         if (!validToken(id, token)) {
             token.invalidate();
