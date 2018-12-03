@@ -81,7 +81,7 @@ class Tokeneer_Test {
         var token := enrollmentStn.enroll(id, 2);
         assert token != null;
         assert token.valid;
-        token.invalidate()
+        token.invalidate();
         assert !token.valid;
 
     }
