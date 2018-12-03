@@ -1,18 +1,37 @@
 class Tokeneer_Test {
-    method Main()
+
+    method open_success()
     {
-        print "hello, Dafny\n";
-        var id := 114;
         var enrollmentStn := new EnrollmentStn.Init();
-        var token := enrollmentStn.enroll(id, 2);
-        assert token != null;
         var IDStnLow := new IDStn.Init(1);
         var IDStnMedium := new IDStn.Init(2);
         var IDStnHigh := new IDStn.Init(3);
+
+        id := 114;
+        var token := enrollmentStn.enroll(id, 2);
+        assert token != null;
         assert !IDStnLow.doorOpen;
         assert IDStnLow.validToken(id, token);
         assert IDStnLow.validClearance(token);
         IDStnLow.open(id, token);
         assert IDStnLow.doorOpen;
     }
+
+    method open_failure_LowClearance()
+    {
+        var enrollmentStn := new EnrollmentStn.Init();
+        var IDStnLow := new IDStn.Init(1);
+        var IDStnMedium := new IDStn.Init(2);
+        var IDStnHigh := new IDStn.Init(3);
+
+        var id := 114;
+        var token := enrollmentStn.enroll(id, 1);
+        assert token != null;
+        assert !IDStnHigh.doorOpen;
+        assert IDStnHigh.validToken(id, token);
+        assert !IDStnHigh.validClearance(token);
+        IDStnHigh.open(id, token);
+        assert !IDStnHigh.doorOpen;
+    }
+
 }
