@@ -72,7 +72,8 @@
 
 
     method Q2(x : int, y : int) returns (big : int, small : int)
-    ensures big > small;
+    ensures x != y ⇒ big > small
+    ensures x==y ⇒ big == small
     {
     if (x > y)
     {big, small := x, y;}
