@@ -14,7 +14,7 @@
      wp( if(x >= 0) then (y := x) else (y := -x), (0 <= x ==> y == x) ^ (x < 0 ==> y == -x) ^ ( y >= 0);
      wp( if(x >= 0) then (y := x) else (y := -x), R;
 
-     (Using conditional rule)
+     //Use conditional rule
      = ((x >= 0) ==> wp( y := x, R)) ^ ((x < 0) ==> wp( y := -x, R));
      = (A ^ B)* (Using abbreviations for substatements to make it simpler)
 
@@ -61,6 +61,11 @@
         { y := -x; }
        else
         { y := x; }
+     }
+
+     function abs(x : int) : int
+     {
+       if x < 0 then -x else x
      }
 
 
