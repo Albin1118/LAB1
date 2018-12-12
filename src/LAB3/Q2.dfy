@@ -11,15 +11,15 @@
     Because there is an else if statement, conditional calculus is used.
 
     wp( if B then S1 else S2, R);
-    wp( if(x > y) then (big := x, small := y) else (big := y, small := x), ( big > small ));
+    wp( if(x > y) then (big := x; small := y) else (big := y; small := x), ( big > small ));
 
     (Using conditional rule)
-    =(x > y) ⇒ wp(big := x, small := y, big > small)
-    ^ (x <= y) ⇒ wp(big := y, small := x, big > small)
+    =(x > y) ⇒ wp(big := x; small := y, big > small)
+    ^ (x <= y) ⇒ wp(big := y; small := x, big > small)
     = (A ^ B)* (Using abbreviations for substatements to make it simpler)
 
     Solve A first
-    A = (x > y) ==> wp( big:= x, small := y, big > small);
+    A = (x > y) ==> wp( big:= x; small := y, big > small);
     //Use sequential rule
     A = (x > y) ⇒ wp( big := x, wp( small := y, big > small) )
     //Use assignment rule
@@ -29,17 +29,18 @@
     A is true for all input, does not require preconditions
 
     Then solve B
-    B = (x <= y) ==> wp( big:= y, small := x, big > small);
+    B = (x <= y) ==> wp( big:= y; small := x, big > small);
     //Use sequential rule
     B = (x <= y) ⇒ wp( big := y, wp( small := x, big > small) )
     //Use assignment rule
     B = (x <= y) ⇒ wp( big := y, big > x)
     //Use assignment rule again
     B = (x <= y) ⇒ y > x
+    //Simplify
     B = y == x ⇒ y > x (trivially false)
 
     (A ^ B) = T ^ F = F
-    wp( if(x > y) then (big := x, small := y) else (big := y, small := x), ( big > small )) = F
+    wp( if(x > y) then (big := x; small := y) else (big := y; small := x), ( big > small )) = F
 
     There was no previous precondition, it was always true.
     Q(nonexistent precondition) ⇒ wp,
