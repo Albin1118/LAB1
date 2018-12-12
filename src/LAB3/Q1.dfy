@@ -43,10 +43,10 @@
 
      /* Question 1 Task 3:
 
-     Firstly, as a function the code can be made much shorter. But most importantly is that methods cannot be used
-     inside the body of another method. Therefore, implementing it as a method makes it impossible to use in other
-     situations. If made into a function, or a function method, it would be possible to call the method from within
-     another method.
+     Firstly, as a function the code can be made simpler. But most importantly, methods cannot be used in
+     other functions or in the specification of another method. Therefore, implementing it as a method makes it
+     harder to reuse. If made into a function, or a function method, it would be possible to use it in
+     other functions or in the specification of other methods.
 
      */
 
