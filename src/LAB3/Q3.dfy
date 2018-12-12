@@ -39,12 +39,12 @@
 
     //1	 (n >= 0 ^ res == n0*m0-n*m)
     //2	^( (0 < n) ^ (n >= 0 ^ res == n0*m0-n*m) ⇒
-            wp(res := res + m; n := n-1, (n >= 0 ^ res == n0*m0-n*m) )
+              wp(res := res + m; n := n-1, (n >= 0 ^ res == n0*m0-n*m) )
     //3	^( (n <=0) ^ (n >= 0 ^ res == n0*m0-n*m)==> res == (n0 * m0))
 
     //4	^( (n >= 0 ^ res == n0*m0-n*m) ⇒ n >= 0 )
     //5	^( (0 < n) ^ (n >= 0 ^ res == n0*m0-n*m) ⇒
-            wp(tmp := n; res := res + m; n := n-1, (tmp > n)) )
+              wp(tmp := n; res := res + m; n := n-1, (tmp > n)) )
 
     //Start by proving 2
     ((0 < n) ^ (n >= 0 ^ res == n0*m0-n*m) ⇒
