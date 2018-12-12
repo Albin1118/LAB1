@@ -39,16 +39,16 @@
 
     //1	 (n >= 0 ^ res == n0*m0-n*m)
     //2	^( (0 < n) ^ (n >= 0 ^ res == n0*m0-n*m) ⇒
-              wp(res := res + m; n := n-1, (n >= 0 ^ res == n0*m0-n*m) )
+                 wp(res := res + m; n := n-1, (n >= 0 ^ res == n0*m0-n*m) )
     //3	^( (n <=0) ^ (n >= 0 ^ res == n0*m0-n*m)==> res == (n0 * m0))
 
     //4	^( (n >= 0 ^ res == n0*m0-n*m) ⇒ n >= 0 )
     //5	^( (0 < n) ^ (n >= 0 ^ res == n0*m0-n*m) ⇒
-              wp(tmp := n; res := res + m; n := n-1, (tmp > n)) )
+                 wp(tmp := n; res := res + m; n := n-1, (tmp > n)) )
 
     //Start by proving 2
     ((0 < n) ^ (n >= 0 ^ res == n0*m0-n*m) ⇒
-            wp(res := res + m; n := n-1, (n >= 0 ^ res == n0*m0-n*m) )
+                 wp(res := res + m; n := n-1, (n >= 0 ^ res == n0*m0-n*m) )
     //Solve the wp
     //Sequential rule
     wp(res := res + m, wp(n := n-1, (n >= 0 ^ res == n0*m0-n*m))
@@ -108,13 +108,13 @@
     wp( res := 0, if (n0 >= 0) {n,m := n0, m0} else {n,m := -n0, -m0},
     wp( while B I D S, R));
     wp( res := 0, if (n0 >= 0) {n,m := n0, m0} else {n,m := -n0, -m0},
-        (n >= 0 ^ res == n0*m0-n*m));
+            (n >= 0 ^ res == n0*m0-n*m));
 	//Now use sequential rule
 	wp( res := 0, wp(if (n0 >= 0) {n,m := n0, m0} else {n,m := -n0, -m0},
-      (n >= 0 ^ res == n0*m0-n*m) ) );
+            (n >= 0 ^ res == n0*m0-n*m) ) );
 	//Now conditional rule - solve inner wp
 	wp(if (n0 >= 0) {n,m := n0, m0} else {n,m := -n0, -m0},
-      (n >= 0 ^ res == n0*m0-n*m) )
+            (n >= 0 ^ res == n0*m0-n*m) )
 	= (n0 >= 0) ⇒ wp(n := n0,m := m0,(n >= 0 ^ res == n0*m0-n*m))
 	  ^ (n0 < 0) => wp(n := -n0,m := -m0,(n >= 0 ^ res == n0*m0-n*m)
 	= (A ^ B)* (Using abbreviations for substatements to make it simpler)
